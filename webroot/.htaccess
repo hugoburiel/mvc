@@ -1,0 +1,44 @@
+#/**
+# * @author Hugo David Buriel-Vasquez
+# * @copyright Hugo David Buriel-Vasquez 2016
+# * @version 1.0.0
+#*/
+
+## Setup the password protection
+AuthName "Gōlem MVC - Development"
+AuthType Basic
+AuthUserFile /home/private/.htpasswd
+Require valid-user
+
+
+## Access exceptions
+Order Deny,Allow
+Deny from all
+Allow from xx.xx.xxx.xxx
+Satisfy any
+
+## Disable directory browsing
+Options -Indexes
+
+# Without -MultiViews, Apache will give a 404 for a rewrite if a folder of the same name does not exist
+Options -MultiViews
+
+## The server will follow symbolic links in this directory
+Options +FollowSymLinks
+
+## Set the default site page
+DirectoryIndex atlas.php home
+
+## REWRITE RULES AND CONDITIONS
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteBase /
+
+
+  # SEO-friendly URLs; do not redirect if physical directory, file, or link  exist
+  RewriteCond %{REQUEST_FILENAME} !-d [OR]  # directory
+  RewriteCond %{REQUEST_FILENAME} !-f [OR]  # file
+  RewriteCond %{REQUEST_FILENAME} !-s [OR]  # file with size
+  RewriteCond %{REQUEST_FILENAME} !-l [OR]  # link
+  RewriteRule ^([^\.]+)$ atlas.php [NC,L]
+</IfModule>
