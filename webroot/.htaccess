@@ -5,7 +5,7 @@
 #*/
 
 ## Setup the password protection
-AuthName "Gōlem MVC - Development"
+AuthName "MVC - Development"
 AuthType Basic
 AuthUserFile /home/private/.htpasswd
 Require valid-user
